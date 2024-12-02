@@ -41,7 +41,21 @@ impl Day01 {
     }
 
     fn part2(&self, input: &str) -> String {
-        input.into()
+        let (l, r) = self.parse(input);
+
+        let mut sum: i32 = 0;
+
+        for x in &l {
+            let mut times: i32 = 0;
+            for y in &r {
+                if x == y {
+                    times += 1;
+                }
+            }
+            sum += x * times
+        }
+
+        sum.to_string()
     }
 }
 
@@ -71,7 +85,7 @@ mod tests {
     3   3";
 
     #[test]
-    fn test_part1() {
+    fn part1() {
         let d1 = Day01::new();
         let res = d1.part1(EXAMPLE);
 
@@ -80,7 +94,7 @@ mod tests {
     }
 
     #[test]
-    fn test_part2() {
+    fn part2() {
         let d1 = Day01::new();
         let res = d1.part2(EXAMPLE);
 

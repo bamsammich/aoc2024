@@ -5,7 +5,7 @@ mod day01;
 mod puzzle;
 
 fn main() {
-    let days: Vec<Box<dyn DailyPuzzle>> = vec![day01::Day01::new(), day01::Day01::new()];
+    let days: Vec<Box<dyn DailyPuzzle>> = vec![day01::Day01::new()];
     let args: Vec<String> = env::args().collect();
 
     if args.len() > 1 {
