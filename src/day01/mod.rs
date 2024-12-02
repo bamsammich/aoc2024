@@ -16,6 +16,7 @@ impl DailyPuzzle for Day01 {
     fn name(&self) -> String {
         "Day 01".into()
     }
+
     fn test01(&self) -> String {
         let mut l: Vec<i32> = Vec::new();
         let mut r: Vec<i32> = Vec::new();
