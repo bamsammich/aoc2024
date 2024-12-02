@@ -6,16 +6,14 @@ pub struct Day01 {
 }
 
 impl Day01 {
-    pub fn new() -> Day01 {
-        let input = include_str!("input.txt");
-        return Day01 {
-            input: input.into(),
-        };
+    pub fn new() -> Self {
+        let input = include_str!("input.txt").to_string();
+        Self { input }
     }
 }
 
 impl DailyPuzzle for Day01 {
-    fn test01(&self) -> &String {
+    fn test01(&self) -> String {
         let mut l: Vec<i32> = Vec::new();
         let mut r: Vec<i32> = Vec::new();
 
@@ -33,14 +31,14 @@ impl DailyPuzzle for Day01 {
         r.sort();
 
         let mut val: i32 = 0;
-        for i in [0..l.len()] {
-            val += (l[i].to_owned() - r[i].to_owned()).abs();
+        for i in 0..l.len() {
+            val += (l[i] - r[i]).abs();
         }
 
-        &"".to_string()
+        val.to_string()
     }
 
-    fn test02(&self) -> &String {
-        return &String::new();
+    fn test02(&self) -> String {
+        String::new()
     }
 }
