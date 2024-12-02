@@ -4,7 +4,10 @@ mod day01;
 mod puzzle;
 
 fn main() {
-    let d = day01::Day01::new();
-    println!("{}", d.test01());
-    println!("{}", d.test02());
+    let days: Vec<Box<dyn DailyPuzzle>> = vec![day01::Day01::new()];
+    for d in days {
+        println!("=== {} ===", d.name());
+        println!("- Test 01: {}", d.test01());
+        println!("- Test 02: {}", d.test02());
+    }
 }

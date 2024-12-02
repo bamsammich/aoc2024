@@ -6,13 +6,16 @@ pub struct Day01 {
 }
 
 impl Day01 {
-    pub fn new() -> Self {
+    pub fn new() -> Box<Self> {
         let input = include_str!("input.txt").to_string();
-        Self { input }
+        Box::new(Self { input })
     }
 }
 
 impl DailyPuzzle for Day01 {
+    fn name(&self) -> String {
+        "Day 01".into()
+    }
     fn test01(&self) -> String {
         let mut l: Vec<i32> = Vec::new();
         let mut r: Vec<i32> = Vec::new();
