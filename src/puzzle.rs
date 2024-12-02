@@ -1,10 +1,10 @@
 pub trait DailyPuzzle {
     fn name(&self) -> String;
-    fn test01(&self) -> String;
-    fn test02(&self) -> String;
+    fn part1(&self) -> String;
+    fn part2(&self) -> String;
     fn run(&self) {
         println!("=== {} ===", self.name());
-        println!("- Test 01: {}", self.test01());
-        println!("- Test 02: {}", self.test02());
+        println!("- Part 1: {}", self.part1());
+        println!("- Part 2: {}", self.part2());
     }
 }

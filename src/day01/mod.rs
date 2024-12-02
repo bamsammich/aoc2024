@@ -1,27 +1,20 @@
 use super::puzzle::DailyPuzzle;
 
+const INPUT: &str = include_str!("input.txt");
+
 #[derive(Clone)]
-pub struct Day01 {
-    input: String,
-}
+pub struct Day01 {}
 
 impl Day01 {
     pub fn new() -> Box<Self> {
-        let input = include_str!("input.txt").to_string();
-        Box::new(Self { input })
-    }
-}
-
-impl DailyPuzzle for Day01 {
-    fn name(&self) -> String {
-        "Day 01".into()
+        Box::new(Self {})
     }
 
-    fn test01(&self) -> String {
+    fn parse(&self, input: &str) -> (Vec<i32>, Vec<i32>) {
         let mut l: Vec<i32> = Vec::new();
         let mut r: Vec<i32> = Vec::new();
 
-        for line in self.input.lines() {
+        for line in input.lines() {
             for (i, p) in line.split_whitespace().enumerate() {
                 match i {
                     0 => l.push(p.parse::<i32>().unwrap()),
@@ -31,6 +24,11 @@ impl DailyPuzzle for Day01 {
             }
         }
 
+        (l, r)
+    }
+
+    fn part1(&self, input: &str) -> String {
+        let (mut l, mut r) = self.parse(input);
         l.sort();
         r.sort();
 
@@ -42,7 +40,51 @@ impl DailyPuzzle for Day01 {
         val.to_string()
     }
 
-    fn test02(&self) -> String {
-        String::new()
+    fn part2(&self, input: &str) -> String {
+        input.into()
+    }
+}
+
+impl DailyPuzzle for Day01 {
+    fn name(&self) -> String {
+        "Day 01".into()
+    }
+
+    fn part1(&self) -> String {
+        self.part1(INPUT)
+    }
+
+    fn part2(&self) -> String {
+        self.part2(INPUT)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const EXAMPLE: &str = "3   4
+    4   3
+    2   5
+    1   3
+    3   9
+    3   3";
+
+    #[test]
+    fn test_part1() {
+        let d1 = Day01::new();
+        let res = d1.part1(EXAMPLE);
+
+        println!("stuff");
+        assert_eq!(res, "11");
+    }
+
+    #[test]
+    fn test_part2() {
+        let d1 = Day01::new();
+        let res = d1.part2(EXAMPLE);
+
+        println!("other stuff");
+        assert_eq!(res, "31");
     }
 }
