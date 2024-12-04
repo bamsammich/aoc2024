@@ -89,7 +89,6 @@ mod tests {
         let d1 = Day01::new();
         let res = d1.part1(EXAMPLE);
 
-        println!("stuff");
         assert_eq!(res, "11");
     }
 
@@ -98,7 +97,6 @@ mod tests {
         let d1 = Day01::new();
         let res = d1.part2(EXAMPLE);
 
-        println!("other stuff");
         assert_eq!(res, "31");
     }
 }
