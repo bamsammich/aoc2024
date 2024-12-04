@@ -13,27 +13,23 @@ impl Day02 {
     }
 
     fn parse(&self, input: &str) -> Vec<Vec<i32>> {
-        let mut out: Vec<Vec<i32>> = Vec::new();
-        for line in input.lines() {
-            let mut report: Vec<i32> = Vec::new();
-            for raw in line.split_whitespace() {
-                let v = raw.parse::<i32>().expect("expected valid number");
-                report.push(v);
-            }
-            out.push(report);
-        }
-
-        out
+        input
+            .lines()
+            .map(|line| {
+                line.split_whitespace()
+                    .map(|raw| raw.parse::<i32>().expect("expected valid number"))
+                    .collect()
+            })
+            .collect()
     }
 
     fn part1(&self, input: &str) -> String {
-        let mut count: i32 = 0;
-        for r in self.parse(input) {
-            if monotonic_in_range(&r, 1, 3) {
-                count += 1;
-            }
-        }
-        count.to_string()
+        self.parse(input)
+            .iter()
+            .map(|r| monotonic_in_range(r))
+            .filter(|a| *a)
+            .count()
+            .to_string()
     }
 
     fn part2(&self, input: &str) -> String {
@@ -55,24 +51,9 @@ impl DailyPuzzle for Day02 {
     }
 }
 
-fn monotonic_in_range(nums: &Vec<i32>, min: i32, max: i32) -> bool {
-    if nums.len() <= 1 {
-        return false;
-    }
-
-    if nums[1] == nums[0] {
-        return false;
-    }
-
-    let increasing = nums[1] > nums[0];
-    for i in 0..nums.len() - 1 {
-        let diff = (nums[i + 1] - nums[i]).abs();
-        if (nums[i + 1] > nums[i]) != increasing || diff < min || diff > max {
-            return false;
-        }
-    }
-
-    true
+fn monotonic_in_range(nums: &Vec<i32>) -> bool {
+    let diffs: Vec<i32> = nums.windows(2).map(|pair| pair[1] - pair[0]).collect();
+    diffs.iter().all(|&d| 0 < d && d <= 3) || diffs.iter().all(|&d| -3 <= d && d < 0)
 }
 
 #[cfg(test)]
