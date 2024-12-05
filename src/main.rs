@@ -3,10 +3,15 @@ use std::env;
 
 mod day01;
 mod day02;
+mod day03;
 mod puzzle;
 
 fn main() {
-    let days: Vec<Box<dyn DailyPuzzle>> = vec![day01::Day01::new(), day02::Day02::new()];
+    let days: Vec<Box<dyn DailyPuzzle>> = vec![
+        day01::Day01::new(),
+        day02::Day02::new(),
+        day03::Day03::new(),
+    ];
     let args: Vec<String> = env::args().collect();
 
     if args.len() > 1 {
