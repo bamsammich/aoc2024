@@ -1,4 +1,4 @@
-use std::{i32, ops::Range};
+use std::i32;
 
 use super::puzzle::DailyPuzzle;
 
@@ -26,15 +26,33 @@ impl Day02 {
     fn part1(&self, input: &str) -> String {
         self.parse(input)
             .iter()
-            .map(|r| monotonic_in_range(r))
+            .map(|r| is_monotonic(r))
             .filter(|a| *a)
             .count()
             .to_string()
     }
 
     fn part2(&self, input: &str) -> String {
-        unimplemented!()
+        self.parse(input)
+            .iter()
+            .map(|r| {
+                let mut permutations: Vec<bool> = Vec::new();
+                for i in 0..r.len() {
+                    let mut cp = r.clone();
+                    cp.remove(i);
+                    permutations.push(is_monotonic(&cp));
+                }
+                permutations.iter().filter(|a| **a).count() > 0
+            })
+            .filter(|a| *a)
+            .count()
+            .to_string()
     }
+}
+
+fn is_monotonic(nums: &Vec<i32>) -> bool {
+    let diffs: Vec<i32> = nums.windows(2).map(|pair| pair[1] - pair[0]).collect();
+    diffs.iter().all(|&d| 0 < d && d <= 3) || diffs.iter().all(|&d| -3 <= d && d < 0)
 }
 
 impl DailyPuzzle for Day02 {
@@ -51,11 +69,6 @@ impl DailyPuzzle for Day02 {
     }
 }
 
-fn monotonic_in_range(nums: &Vec<i32>) -> bool {
-    let diffs: Vec<i32> = nums.windows(2).map(|pair| pair[1] - pair[0]).collect();
-    diffs.iter().all(|&d| 0 < d && d <= 3) || diffs.iter().all(|&d| -3 <= d && d < 0)
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -70,8 +83,15 @@ mod tests {
     #[test]
     fn part1() {
         let d = Day02::new();
-        let res = d.part1(EXAMPLE);
 
-        assert_eq!(res, "2");
+        assert_eq!(d.part1(EXAMPLE), "2");
+        assert_eq!(d.part1(INPUT), "598");
+    }
+
+    #[test]
+    fn part2() {
+        let d = Day02::new();
+
+        assert_eq!(d.part2(EXAMPLE), "4");
     }
 }
